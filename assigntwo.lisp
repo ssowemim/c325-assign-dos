@@ -18,7 +18,7 @@
                 )
                 ((eq f 'null)	
 					(null (fl-interp (car arg) P))
-				)
+				);j/9i
                 ((eq f 'number)	
                 	(number (fl-interp (car arg) P))
                 )
@@ -40,32 +40,14 @@
                 ((eq f 'quote)
                 	(quote (fl-interp (car arg) P))
                 )
+                ((eq f 'mapcar)
+                	(mapcar (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+                ((eq f reduce)
+                	(reduce (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+                ((eq f ())
 
-                ;first done
-                ;rest done
-                ;atom done		   				
-                ;null done
-                ;number done
-                ;abs done
-                ;eq done
-                ;equal done
-                ;append done
-                ;if statement
-                ;let
-                ;let*
-                ;defun
-                ;mapcar
-                ;reduce
-                ;lambda
-                ;funcall
-                ;apply 
-                ;list
-                ;sort L fun
-                ;progn
-                ;print
-                ;eval
-                ;cons done
-                ;
 
 	        ..... 
 

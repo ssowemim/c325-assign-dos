@@ -14,9 +14,9 @@
 (let ((x y) ...(u v)) z)
 (let* ((x y) ... (u v)) z)
 (defun ...)
-(quote x) and its short form 'x
-(mapcar x y)
-(reduce x y)
+(quote x) and its short form 'x DONE
+(mapcar x y) DONE.
+(reduce x y) DONE.
 (lambda ...)
 (funcall ...)
 (apply ...)
