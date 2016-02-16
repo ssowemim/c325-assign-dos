@@ -24,18 +24,18 @@
 (sort L fun)
 (progn exp1 ... expn)
 (print ...)
-(abs x)
+(abs x) DONE.
 (eval ...)
 
-(+ x y)
-(- x y)
-(* x y)
-(/ x y)
-(< x y)
-(> x y)
-(= x y)
-(<= x y)
-(>= x y)
-(and x y)
-(or x y)
-(not x)
+(+ x y) DONE
+(- x y) DONE
+(* x y) DONE
+(/ x y) DONE
+(< x y) DONE
+(> x y) DONe
+(= x y) DONE
+(<= x y) DONE
+(>= x y) DONE
+(and x y) DONE
+(or x y) DONE
+(not x) DONE
