@@ -37,6 +37,9 @@
                 ((eq f 'cons) 
                 	(append (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
                 )
+                ((eq f 'quote)
+                	(quote (fl-interp (car arg) P))
+                )
 
                 ;first done
                 ;rest done
