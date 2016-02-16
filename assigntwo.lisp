@@ -7,7 +7,63 @@
            (let ( (f (car E))  (arg (cdr E)) )
 	      	(cond 
                 ; handle built-in functions
-                ((eq f 'first)  (car (fl-interp (car arg) P)))
+                ((eq f 'first)  
+                	(car (fl-interp (car arg) P))
+                )
+                ((eq f 'rest)
+                	(cdr (fl-interp (car arg) P))
+                )
+                ((eq f 'atom)	
+                	(atom (fl-interp (car arg) P))
+                )
+                ((eq f 'null)	
+					(null (fl-interp (car arg) P))
+				)
+                ((eq f 'number)	
+                	(number (fl-interp (car arg) P))
+                )
+                ((eq f 'abs)	
+                	(abs (fl-interp (car arg) P))
+                )
+                ((eq f 'eq)	
+                	(eq (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+                ((eq f 'equal)
+                	(equal (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+                ((eq f 'append)
+                	(append (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+                ((eq f 'cons) 
+                	(append (fl-interp (car arg) P) (fl-interp (car(cdr arg) P)))
+                )
+
+                ;first done
+                ;rest done
+                ;atom done		   				
+                ;null done
+                ;number done
+                ;abs done
+                ;eq done
+                ;equal done
+                ;append done
+                ;if statement
+                ;let
+                ;let*
+                ;defun
+                ;mapcar
+                ;reduce
+                ;lambda
+                ;funcall
+                ;apply 
+                ;list
+                ;sort L fun
+                ;progn
+                ;print
+                ;eval
+                ;cons done
+                ;
+
 	        ..... 
 
 	        ; if f is a user-defined function,
@@ -22,7 +78,7 @@
          	)
 
 	    )
-           
+
         )
     ) 
 )

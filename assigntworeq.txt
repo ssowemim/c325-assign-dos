@@ -1,0 +1,41 @@
+
+
+(atom x) DONE.
+(null x) DONE.
+(eq x y) DONE.
+(equal x y) DONE.
+(numberp x) DONE.
+(append x y) DONE.
+(car x), (first x) ---- Double check
+(cdr x), (rest x) ----- Double check
+(cons x y) DONE.
+(if x y z) DONE.
+(cond  ... ) DONE.
+(let ((x y) ...(u v)) z)
+(let* ((x y) ... (u v)) z)
+(defun ...)
+(quote x) and its short form 'x
+(mapcar x y)
+(reduce x y)
+(lambda ...)
+(funcall ...)
+(apply ...)
+(list ...)
+(sort L fun)
+(progn exp1 ... expn)
+(print ...)
+(abs x)
+(eval ...)
+
+(+ x y)
+(- x y)
+(* x y)
+(/ x y)
+(< x y)
+(> x y)
+(= x y)
+(<= x y)
+(>= x y)
+(and x y)
+(or x y)
+(not x)
