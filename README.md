@@ -1,5 +1,5 @@
 # c325-assign-dos
-Assignment two for Cmput 325
+Assignment two
 
 # DUE FEB 27. 11:55pm
 Submit your program as a single file named <yourID.lisp> via eClass using the submission link at the end of this page.
