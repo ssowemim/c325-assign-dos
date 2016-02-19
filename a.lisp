@@ -1,11 +1,5 @@
 ;Making initial contribution to assignment two in C325
 
-
-(defun fl-interp (E P)
-
-	(interp E P nil nil)
-)
-
 (defun interp (E P vars values)
 	(cond 
 		((atom E) (replaceVars E vars values))   ;this includes the case where expr is nil
@@ -107,6 +101,11 @@
 	        )
 	    )
 	)
+)
+
+(defun fl-interp (E P)
+
+	(interp E P nil nil)
 )
 
 (defun countNum (L)
