@@ -1,165 +1,108 @@
-;Making initial contribution to assignment two in C325
-
-(defun evalArgs (L P vars values)
-	(if (null L)
-		nil
-		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
-	)
+(defun find_var_in_context (E C)
+    (cond
+        ((null C) E)
+        ((equal E (caar C)) (cdar C))
+        (t (find_var_in_context E (cdr C)))
+    )
 )
 
-(defun countNum (L)
-	(if (null L)
-		0
-		(+ 1 (countNum (cdr L)))
-	)
+(defun find_func_in_program (E P C)
+    (cond
+        ((null P) (find_var_in_context E C))
+        ((equal (caar P) E) (list (get_fnargs (cdar P)) (get_fnbody (car P))))
+        (t (find_func_in_program E (cdr P) C))
+    )
 )
 
-(defun getVarsOfFunc (E P)
-	(if (null P)
-		nil
-		(if (and (eq (car E) (car (car P)))
-				(eq (countNum (car(cdr(car P))))
-					(countNum (cdr E))
-				)
-			)
-			(car (cdr (car P)))
-			(getVarsOfFunc E (cdr P))
-		)
-	)
+(defun get_func (f arity P)
+    (cond
+        ((null P) nil)
+        ((and (equal (caar P) f) (equal arity (get_arity (get_fnargs (cdar P))))) (list (get_fnargs (cdar P)) (get_fnbody (car P))))
+        (t (get_func f arity (cdr P)))
+    )
 )
 
-(defun userDefined (E P)
-	(if (null P)
-		nil
-		(if (and (eq (car E) (car (car P)))
-				(eq (countNum (car (cdr (car P)))) 
-					(countNum (cdr E))
-				)
-			)
-			(car (cdr (cdr (cdr (car P)))))
-			(userDefined E (cdr P))
-		)
-	)
+(defun get_fnbody (L)
+    (cond
+        ((eq (car L) '=) (cadr L))
+        (t (get_fnbody (cdr L)))
+    )
 )
 
-(defun replaceVars (E vars values)
-	(if (null vars) E
-		(if (eq E (car vars))
-			(car values)
-			(replaceVars E (cdr vars) (cdr values))
-		)
-	)
-)
-
-(defun interp (E P vars values)
-	(cond 
-		((atom E) (replaceVars E vars values))   ;this includes the case where expr is nil
-	   	(t
-	        (let ( (f (car E))  (arg (cdr E)) )
-			    (cond 
-		            ;handle built-in functions
-		            ;prmitive functions
-		            ((eq f 'first)  
-		           		(car (interp (car arg) P vars values))
-		            )
-	                ((eq f 'rest)
-	                	(cdr (interp (car arg) P vars values))
-	                )
-	                ((eq f 'atom)	
-	                	(atom (interp (car arg) P vars values))
-	                )
-	                ((eq f 'null)	
-						(null (interp (car arg) P vars values))
-					)
-	                ((eq f 'number)	
-	                	(numberp (interp (car arg) P vars values))
-	                )
-	                ((eq f 'abs)	
-	                	(abs (interp (car arg) P vars values))
-	                )
-	                ((eq f 'eq)	
-	                	(eq (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'equal)
-	                	(equal (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'append)
-	                	(append (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'cons) 
-	                	(append (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'quote)
-	                	(quote (interp (car arg) P vars values))
-	                )
-	                ((eq f 'mapcar)
-	                	(mapcar (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'reduce)
-	                	(reduce (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '+)
-	                	(+ (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '-)
-	                	(- (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	 				((eq f '*)
-	                	(* (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '/)
-	                	(/ (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '<)
-	                	(< (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '>)
-	                	(> (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f '=)
-	                	(= (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'and)
-	                	(and (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	                ((eq f 'or)
-	                	(or (interp (car arg) P vars values) (interp (car(cdr arg)) P vars values))
-	                )
-	               	((eq f 'not)
-	                	(not (interp (car arg) P vars values))
-	                )
-	                ((eq f 'if) 
-	                	(if (interp (car arg) P vars values) (interp (car (cdr arg)) P vars values)
-	                		(interp (car (cdr(cdr arg))) P vars values)
-	                	)
-	                )
-
-		        	; if f is a user-defined function,
-	                ;    then evaluate the arguments 
-	                ;         and apply f to the evaluated arguments 
-	                ;             (applicative order reduction) 
-
-
-	                ; otherwise f is undefined; in this case,
-	                ; E is returned as if it is quoted in lisp
-
-	                ;handles the situation for a user defined function
-	                ((userDefined E P)
-	                	(interp (userDefined E P) 
-	                		P 
-	                		;evaluating the function and applying f to args
-	                		;done in an applicative order reduction order
-	                		(append (getVarsOfFunc E P) vars)
-	                		(append (evalArgs arg P vars values) values)
-	             	   	)
-	                ) (T E)
-			    )
-	        )
-	    )
-	)
+(defun get_fnargs (L)
+    (cond
+        ((eq (car L) '=) nil)
+        (t (cons (car L) (get_fnargs (cdr L))))
+    )
 )
 
 (defun fl-interp (E P)
+    (_fl-interp E P NIL)
+)
 
-	(interp E P nil nil)
+(defun _fl-interp (E P C)
+    (cond
+        ((atom E) (find_func_in_program E P C))  ; this includes the case where expr is nil
+        (t
+            (let ((f (car E)) (arg (cdr E)))
+                (cond
+                    ; handle built-in functions
+                    ((eq f 'if) (if (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C) (_fl-interp (caddr arg) P C)))
+                    ((eq f 'null)  (null (_fl-interp (car arg) P C)))
+                    ((eq f 'atom)  (atom (_fl-interp (car arg) P C)))
+                    ((eq f 'eq)  (eq (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f 'first)  (car (_fl-interp (car arg) P C)))
+                    ((eq f 'rest)  (cdr (_fl-interp (car arg) P C)))
+                    ((eq f 'cons) (cons (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f 'equal)  (equal (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f 'number)  (numberp (_fl-interp (car arg) P C)))
+                    ((eq f '+)  (+ (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f '-)  (- (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f '*)  (* (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f '>)  (> (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f '<)  (< (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f '=)  (= (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))
+                    ((eq f 'and)  (not (null (and (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))))
+                    ((eq f 'or)  (not (null (or (_fl-interp (car arg) P C) (_fl-interp (cadr arg) P C)))))
+                    ((eq f 'not)  (not (_fl-interp (car arg) P C)))
+
+                    (t
+                        (let
+                            ((ev_args (eval_args arg P C))
+                                (closure (get_func f (get_arity arg) P)))
+                            (if closure
+                                (let
+                                    ((new_context (get_context (car closure) ev_args C))
+                                        (body (cadr closure)))
+                                    (_fl-interp body P new_context) ; Change to a function-specific thing?
+                                )
+                                E
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+
+(defun get_arity (args)
+    (cond
+        ((null args) 0)
+        (t (+ 1 (get_arity (cdr args))))
+    )
+)
+
+(defun get_context (vars nums C)
+    (cond
+        ((null nums) C)
+        (t (cons (cons (car vars) (car nums)) (get_context (cdr vars) (cdr nums) C)))
+    )
+)
+
+(defun eval_args (args P C)
+    (cond
+        ((null args) nil)
+        (t (cons (_fl-interp (car args) P C) (eval_args (cdr args) P C)))
+    )
 )
