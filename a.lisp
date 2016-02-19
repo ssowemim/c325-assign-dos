@@ -7,6 +7,13 @@
 	)
 )
 
+(defun countNum (L)
+	(if (null L)
+		0
+		(+ 1 (countNum (cdr L)))
+	)
+)
+
 (defun getVarsOfFunc (E P)
 	(if (null P)
 		nil
@@ -150,11 +157,4 @@
 (defun fl-interp (E P)
 
 	(interp E P nil nil)
-)
-
-(defun countNum (L)
-	(if (null L)
-		0
-		(+ 1 (countNum (cdr L)))
-	)
 )
