@@ -1,7 +1,7 @@
 ;Making initial contribution to assignment two in C325
 
 
-(defun fl-interp (E P vars values)
+(defun fl-interp (E P)
 
 	;(let (var values)
 	(interp E P nil nil)
@@ -110,6 +110,13 @@
 	)
 )
 
+(defun countNum (L)
+	(if (null L)
+		0
+		(+ 1 (countNum (cdr L)))
+	)
+)
+
 (defun replaceVars (E vars values)
 	(if (null vars) E
 		(if (eq E (car vars))
@@ -122,7 +129,7 @@
 (defun getVarsOfFunc (E P)
 	(if (null P)
 		nil
-		(if (and (eq (car f) (car (car P)))
+		(if (and (eq (car E) (car (car P)))
 				(eq (countNum (car(cdr(car P))))
 					(countNum (cdr E))
 				)
@@ -151,12 +158,5 @@
 	(if (null L)
 		nil
 		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
-	)
-)
-
-(defun countNum (L)
-	(if (null L)
-		0
-		(+ 1 (countNum (cdr L)))
 	)
 )
