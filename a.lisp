@@ -3,7 +3,7 @@
 (defun evalArgs (L P vars values)
 	(if (null L)
 		nil
-		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
+		(t (cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values)))
 	)
 )
 
@@ -151,10 +151,10 @@
 	                		;done in an applicative order reduction order
 	                		(append (getVarsOfFunc E P) vars)
 	                		(append (evalArgs arg P vars values) values)
-	             	   	)
-	                ) (T E)
-			    )
-	        )
+	             		)
+	                )(T E)
+	           	)
+			)
 	    )
 	)
 )
