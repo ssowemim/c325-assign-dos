@@ -6,4 +6,4 @@ Submit your program as a single file named <yourID.lisp> via eClass using the su
 
 In this assignment you implement an interpreter, written in Lisp, for a simple functional programming language FL, similar to the FUN language introduced at the beginning of this semester.
 
-This assignment is worth 15 assignment marks.
+This assignment is worth 15 of total grade.
