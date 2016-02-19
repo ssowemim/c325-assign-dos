@@ -154,3 +154,10 @@
 		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
 	)
 )
+
+(defun countNum (L)
+	(if (null L)
+		0
+		(+ 1 countNum (cdr L))
+	)
+)
