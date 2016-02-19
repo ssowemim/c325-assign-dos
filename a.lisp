@@ -103,11 +103,10 @@
 	                		(append (getVarsOfFunc E P) vars)
 	                		(append (evalArgs arg P vars values) values)
 	             	   	)
-	                )
-	                (T E)
+	                ) (T E)
 			    )
 	        )
-	    ) 
+	    )
 	)
 )
 
