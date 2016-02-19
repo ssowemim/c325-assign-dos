@@ -3,7 +3,6 @@
 
 (defun fl-interp (E P)
 
-	;(let (var values)
 	(interp E P nil nil)
 )
 
