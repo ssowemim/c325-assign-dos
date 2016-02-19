@@ -124,7 +124,7 @@
 	(if (null P)
 		nil
 		(if (and (eq (car f) (car (car P)))
-				(eq (countNum (car(cdr(car ))))
+				(eq (countNum (car(cdr(car P))))
 					(countNum (cdr E))
 				)
 			)
