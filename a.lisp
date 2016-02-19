@@ -3,7 +3,7 @@
 (defun evalArgs (L P vars values)
 	(if (null L)
 		nil
-		(t (cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values)))
+		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
 	)
 )
 
