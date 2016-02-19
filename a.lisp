@@ -10,14 +10,14 @@
 (defun interp (E P vars values)
 	(cond 
 		((atom E) (replaceVars E vars values))   ;this includes the case where expr is nil
-	        (t
-	           (let ( (f (car E))  (arg (cdr E)) )
-		      	(cond 
-	                ;handle built-in functions
-	                ;prmitive functions
-	                ((eq f 'first)  
-	                	(car (interp (car arg) P vars values))
-	                )
+	   	(t
+	        (let ( (f (car E))  (arg (cdr E)) )
+			    (cond 
+		            ;handle built-in functions
+		            ;prmitive functions
+		            ((eq f 'first)  
+		           		(car (interp (car arg) P vars values))
+		            )
 	                ((eq f 'rest)
 	                	(cdr (interp (car arg) P vars values))
 	                )
@@ -85,7 +85,7 @@
 	                	(not (interp (car arg) P vars values))
 	                )
 
-		        ; if f is a user-defined function,
+		        	; if f is a user-defined function,
 	                ;    then evaluate the arguments 
 	                ;         and apply f to the evaluated arguments 
 	                ;             (applicative order reduction) 
@@ -96,16 +96,16 @@
 
 	                ;handles the situation for a user defined function
 	                ((userDefined E P)
-	                	(fl-interp (userDefined E P) 
+	                	(interp (userDefined E P) 
 	                		P 
 	                		;evaluating the function and applying f to args
 	                		;done in an applicative order reduction order
 	                		(append (getVarsOfFunc E P) vars)
-	                		(append (evalArgs arg P vars values) values))
-	                	)
-
+	                		(append (evalArgs arg P vars values) values)
+	             	   	)
+	                )
 	                (T E)
-		    	)
+			    )
 	        )
 	    ) 
 	)
