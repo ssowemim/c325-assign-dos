@@ -1,5 +1,49 @@
 ;Making initial contribution to assignment two in C325
 
+(defun evalArgs (L P vars values)
+	(if (null L)
+		nil
+		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
+	)
+)
+
+(defun getVarsOfFunc (E P)
+	(if (null P)
+		nil
+		(if (and (eq (car E) (car (car P)))
+				(eq (countNum (car(cdr(car P))))
+					(countNum (cdr E))
+				)
+			)
+			(car (cdr (car P)))
+			(getVarsOfFunc E (cdr P))
+		)
+	)
+)
+
+(defun userDefined (E P)
+	(if (null P)
+		nil
+		(if (and (eq (car E) (car (car P)))
+				(eq (countNum (car (cdr (car P)))) 
+					(countNum (cdr E))
+				)
+			)
+			(car (cdr (cdr (cdr (car P)))))
+			(userDefined E (cdr P))
+		)
+	)
+)
+
+(defun replaceVars (E vars values)
+	(if (null vars) E
+		(if (eq E (car vars))
+			(car values)
+			(replaceVars E (cdr vars) (cdr values))
+		)
+	)
+)
+
 (defun interp (E P vars values)
 	(cond 
 		((atom E) (replaceVars E vars values))   ;this includes the case where expr is nil
@@ -112,49 +156,5 @@
 	(if (null L)
 		0
 		(+ 1 (countNum (cdr L)))
-	)
-)
-
-(defun replaceVars (E vars values)
-	(if (null vars) E
-		(if (eq E (car vars))
-			(car values)
-			(replaceVars E (cdr vars) (cdr values))
-		)
-	)
-)
-
-(defun getVarsOfFunc (E P)
-	(if (null P)
-		nil
-		(if (and (eq (car E) (car (car P)))
-				(eq (countNum (car(cdr(car P))))
-					(countNum (cdr E))
-				)
-			)
-			(car (cdr (car P)))
-			(getVarsOfFunc E (cdr P))
-		)
-	)
-)
-
-(defun userDefined (E P)
-	(if (null P)
-		nil
-		(if (and (eq (car E) (car (car P)))
-				(eq (countNum (car (cdr (car P)))) 
-					(countNum (cdr E))
-				)
-			)
-			(car (cdr (cdr (cdr (car P)))))
-			(userDefined E (cdr P))
-		)
-	)
-)
-
-(defun evalArgs (L P vars values)
-	(if (null L)
-		nil
-		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
 	)
 )
