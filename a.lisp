@@ -158,6 +158,6 @@
 (defun countNum (L)
 	(if (null L)
 		0
-		(+ 1 countNum (cdr L))
+		(+ 1 (countNum (cdr L)))
 	)
 )
