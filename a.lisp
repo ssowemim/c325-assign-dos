@@ -128,6 +128,11 @@
 	               	((eq f 'not)
 	                	(not (interp (car arg) P vars values))
 	                )
+	                ((eq f 'if) 
+	                	(if (interp (car arg) P vars values) (interp (car (cdr arg)) P vars values)
+	                		(interp (car (cdr(cdr arg))) P vars values)
+	                	)
+	                )
 
 		        	; if f is a user-defined function,
 	                ;    then evaluate the arguments 
