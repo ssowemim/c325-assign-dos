@@ -1,9 +1,9 @@
 ;Making initial contribution to assignment two in C325
 
-(defun evalArgs (L P vars values)
-	(if (null L)
+(defun evalArgs (arg P vars values)
+	(if (null arg)
 		nil
-		(cons (interp (car L) P vars values) (evalArgs (cdr L) P vars values))
+		(cons (interp (car arg) P vars values) (evalArgs (cdr arg) P vars values))
 	)
 )
 
@@ -36,7 +36,7 @@
 					(countNum (cdr E))
 				)
 			)
-			(car (cdr (cdr (cdr (car P)))))
+			(car (cdr (car P)))
 			(userDefined E (cdr P))
 		)
 	)
