@@ -44,11 +44,17 @@
 
 (defun replaceVars (E vars values)
 	(if (null vars) E
-		(if (eq E (car vars))
+		(if (equal E (car vars))
 			(car values)
 			(replaceVars E (cdr vars) (cdr values))
 		)
 	)
+
+;(cond 
+;	((null vars) (getVarsOfFunc E values))
+;	((equal (caar P) E) (list ())
+;)
+
 )
 
 (defun interp (E P vars values)
