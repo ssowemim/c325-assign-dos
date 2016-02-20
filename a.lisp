@@ -161,7 +161,7 @@
 (defun evalArgs (arg P vars values) ;eval_args
 	(if (null arg)
 		nil
-		(cons (interp (car arg) P vars values) (evalArgs (cdr ) P vars values))
+		(cons (interp (car arg) P vars values) (evalArgs (cdr arg) P vars values))
 	)
 )
 
