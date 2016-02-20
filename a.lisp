@@ -1,9 +1,14 @@
 ;Making initial contribution to assignment two in C325
 
 (defun countNum (args) ;get_arity
-	(if (null args)
-		0
-		(+ 1 (countNum (cdr args)))
+;	(if (null args)
+;		0
+;		(+ 1 (countNum (cdr args)))
+;	)
+
+	(cond 
+		((null args) 0)
+		(t (+ 1 (countNum (cdr args))))
 	)
 )
 
