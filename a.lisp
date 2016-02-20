@@ -26,16 +26,16 @@
 	)
 )
 
-(defun userDefined (E P)
+(defun userDefined (f E P)
 	(if (null P)
 		nil
-		(if (and (eq (car E) (car (car P)))
-				(eq (countNum (car (cdr (car P)))) 
+		(if (and (equal f (car (car P)))
+				 (equal (countNum (car (cdr (car P)))) 
 					(countNum (cdr E))
-				)
+				 )
 			)
 			(car (cdr (cdr (cdr (car P)))))
-			(userDefined E (cdr P))
+			(userDefined f E (cdr P))
 		)
 	)
 )
@@ -148,8 +148,8 @@
 	                ; E is returned as if it is quoted in lisp
 
 	                ;handles the situation for a user defined function
-	                ((userDefined E P)
-	                	(interp (userDefined E P) 
+	                ((userDefined f E P)
+	                	(interp (userDefined f E P) 
 	                		P 
 	                		;evaluating the function and applying f to args
 	                		;done in an applicative order reduction order
