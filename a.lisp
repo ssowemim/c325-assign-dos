@@ -3,14 +3,14 @@
 (defun evalArgs (arg P vars values)
 	(if (null arg)
 		nil
-		(cons (interp (car arg) P vars values) (evalArgs (cdr arg) P vars values))
+		(cons (interp (car arg) P vars values) (evalArgs (cdr ) P vars values))
 	)
 )
 
-(defun countNum (L)
-	(if (null L)
+(defun countNum (args)
+	(if (null args)
 		0
-		(+ 1 (countNum (cdr L)))
+		(+ 1 (countNum (cdr args)))
 	)
 )
 
@@ -36,7 +36,7 @@
 					(countNum (cdr E))
 				)
 			)
-			(car (cdr (car P)))
+			(car (cdr (cdr (cdr (car P)))))
 			(userDefined E (cdr P))
 		)
 	)
