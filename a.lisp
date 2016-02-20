@@ -1,6 +1,6 @@
 ;Making initial contribution to assignment two in C325
 
-(defun countNum (args) ;get_arity
+(defun countNum (args) 
 ;	(if (null args)
 ;		0
 ;		(+ 1 (countNum (cdr args)))
@@ -11,6 +11,8 @@
 		(t (+ 1 (countNum (cdr args))))
 	)
 )
+
+(defun)
 
 (defun getVarsOfFunc (E P)
 	(if (null P)
@@ -27,17 +29,22 @@
 )
 
 (defun userDefined (f E P)
-	(if (null P)
-		nil
-		(if (and (equal f (car (car P)))
-				 (equal (countNum (car (cdr (car P)))) 
-					(countNum (cdr E))
-				 )
-			)
-			(car (cdr (cdr (cdr (car P)))))
-			(userDefined f E (cdr P))
-		)
+;	(if (null P)
+;		nil
+;		(if (and (equal f (car (car P)))
+;				 (equal (countNum (car (cdr (car P)))) (countNum (cdr E)))
+;			)
+;			(car (cdr (cdr (cdr (car P)))))
+;			(userDefined f E (cdr P))
+;		)
+;	)
+
+	(cond 
+		((null P) nil)
+		((and (equal (car(car P)) f)
+			  (equal E (countNum (cdar P)))) (list ) 
 	)
+
 )
 
 (defun replaceVars (E vars values)
@@ -133,8 +140,8 @@
 	                	(not (interp (car arg) P vars values))
 	                )
 	                ((eq f 'if) 
-	                	(if (interp (car arg) P vars values) (interp (car (cdr arg)) P vars values)
-	                		(interp (car (cdr(cdr arg))) P vars values)
+	                	(if (interp (car arg) P vars values) (interp (cadr arg) P vars values)
+	                		(interp (caddr arg) P vars values)
 	                	)
 	                )
 
@@ -163,7 +170,7 @@
 	)
 )
 
-(defun evalArgs (arg P vars values) ;eval_args
+(defun evalArgs (arg P vars values)
 	(if (null arg)
 		nil
 		(cons (interp (car arg) P vars values) (evalArgs (cdr arg) P vars values))
