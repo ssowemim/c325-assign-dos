@@ -1,13 +1,13 @@
 ;Making initial contribution to assignment two in C325
 
-(defun evalArgs (arg P vars values)
+(defun evalArgs (arg P vars values) ;eval_args
 	(if (null arg)
 		nil
 		(cons (interp (car arg) P vars values) (evalArgs (cdr ) P vars values))
 	)
 )
 
-(defun countNum (args)
+(defun countNum (args) ;get_arity
 	(if (null args)
 		0
 		(+ 1 (countNum (cdr args)))
@@ -152,7 +152,7 @@
 	                		(append (getVarsOfFunc E P) vars)
 	                		(append (evalArgs arg P vars values) values)
 	             		)
-	                )(T E)
+	                )(t E)
 	           	)
 			)
 	    )
