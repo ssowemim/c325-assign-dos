@@ -114,7 +114,7 @@
                         (= (interp (car arg) P values) (interp (cadr arg) P values))
                     )
                     ((eq f 'and)  
-                        (null (interp (car arg) P values) (interp (cadr arg) P values))
+                        (and (interp (car arg) P values) (interp (cadr arg) P values))
                     )
                     ((eq f 'or) 
                         (or (interp (car arg) P values) (interp (cadr arg) P values))
