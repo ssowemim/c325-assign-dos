@@ -1,5 +1,8 @@
-;Making initial contribution to assignment two in C325
-
+#|  ASSIGNMENT TWO
+    NAME: SONOLA SOWEMIMO (FEMI)
+    CLASS: CMPUT 325
+    ID: 1293430
+|#
 (defun countNum (args) 
 ;	(if (null args)
 ;		0
