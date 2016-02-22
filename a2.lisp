@@ -11,7 +11,7 @@
    ; )
 
     (if (null args) 0
-        (+ 1 (countNum(cdr arg)))
+        (+ 1 (countNum(cdr args)))
     )
 )
 
