@@ -71,9 +71,6 @@
 (defun userDefinedBody (L)
     
     (if (eq (car L) '=) 
-        ;first argument
-        nil
-        ;second argument
         (car (cdr (L)) (userDefinedBody (cdr L)))
     )
 )
