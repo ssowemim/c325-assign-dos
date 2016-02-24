@@ -18,13 +18,13 @@
             o
         else args++ (done through recursion)
 |#
-(defun countNum (args)
+(defun count (args)
 
     (if (null args) 
         ;first argument
         0
         ;second argument
-        (+ 1 (countNum(cdr args)))
+        (+ 1 (count(cdr args)))
     )
 )
 
@@ -86,6 +86,12 @@
 #|
     process of taking in theuserdefined program and 
     making this into Arguments and also a Body
+
+    cond initial:
+        (p == null)
+            return nil
+    cond two:
+        (p == fun AND E )
 |#
 (defun userDefined (func E P)
     (cond
@@ -94,7 +100,7 @@
         )
         ((and 
             (equal (car (car P)) func) 
-            (equal E (countNum (userDefinedArgs (cdr (car P)))))
+            (equal E (count (userDefinedArgs (cdr (car P)))))
         ) 
             (list (userDefinedArgs (cdr (car P))) (userDefinedBody (car P)))
         )
@@ -269,7 +275,7 @@
                     (t
                         (let
                             ((evalArgsVar (evalArgs arg P values))
-                                (closure (userDefined func (countNum arg) P)))
+                                (closure (userDefined func (count arg) P)))
                             (if closure
                                 (let
                                     ((variableX (getValues (car closure) evalArgsVar values))
