@@ -84,14 +84,9 @@
 )
 
 #|
-    process of taking in theuserdefined program and 
+    process of taking in the userdefined program and 
     making this into Arguments and also a Body
 
-    cond initial:
-        (p == null)
-            return nil
-    cond two:
-        (p == fun AND E )
 |#
 (defun userDefined (func E P)
     (cond
