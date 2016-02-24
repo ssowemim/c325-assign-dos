@@ -93,7 +93,7 @@
     
     (if (eq (car L) '=) 
         ;first argument
-        (car (cdr (L))) 
+        (car (cdr L)) 
         ;second argument
         (userDefinedBody (cdr L))
     )
@@ -257,5 +257,5 @@
     all the command arguments. Also passing in the values arguments. Initially this is nil.
 |#
 (defun fl-interp (E P)
-    (interp E P NIL)
+    (interp E P nil)
 )
