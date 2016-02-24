@@ -2,11 +2,21 @@
     NAME: SONOLA SOWEMIMO (FEMI)
     CLASS: CMPUT 325
     ID: 1293430
+
+    INSTRUCTIONS
+    -------------
+    1. load sbcl
+    2. (compile-file "1293430.lisp")
+    3. (load "1293430.lisp")
 |#
 
 #|
     This simple functions is an adding function,
     main primary is to count the number of arguments.
+    psuedo
+        if (args == null)
+            o
+        else args++ (done through recursion)
 |#
 (defun countNum (args)
 
@@ -21,6 +31,14 @@
 #|
     This function is in charge of parsing through E
     with possible values.
+        cond inital:
+            values == null
+            return E
+        cond two:
+            E == (car values)
+            return (cdr values)
+        final:
+            reuturn recursion(E (rest of values))
 |#
 (defun findVariables (E values)
     (cond
@@ -88,6 +106,11 @@
 
 #|
     Handling the user defined function body
+    psudeo
+        if (firs element L) == '=
+         (second element L) 
+        else 
+            (user body (rest element in L))
 |#
 (defun userDefinedBody (L)
     
@@ -101,6 +124,11 @@
 
 #|
     Handling the user defined function arguments
+    psudeo
+        if (first element L) == '=
+            nil
+        else 
+           cons((first element L) (userDefinedArgs (rest element in L)))
 |#
 (defun userDefinedArgs (L)
 
@@ -141,6 +169,12 @@
     already implemented by lisp already and also those functions that are defined by users.
 
     That function then ends up calling the other functions that aid in solving the function.
+
+    psuedo
+        interp (E P values)
+            cond:
+            find built in primitive functions
+            (t, handles user defined functions)
 |#
 
 (defun interp (E P values)
@@ -255,6 +289,10 @@
 #|
     The main function that is called, this then in turn calls the secondary function that handles
     all the command arguments. Also passing in the values arguments. Initially this is nil.
+
+    psuedo
+        fl-interp (E P)
+            interp (E P nil)
 |#
 (defun fl-interp (E P)
     (interp E P nil)
