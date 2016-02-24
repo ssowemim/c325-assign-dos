@@ -76,7 +76,6 @@
         ;second argument
         (userDefinedBody (cdr L)))
     )
-)
 
 #|
     Handling the user defined function arguments
