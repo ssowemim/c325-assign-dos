@@ -209,14 +209,14 @@
                     ((eq func 'and)  
                         (not
                             (null
-                                (and (interp (car arg) P values) (interp (cad (car arg)) P values))
+                                (and (interp (car arg) P values) (interp (cadr arg) P values))
                             )
                         )
                     )
                     ((eq func 'or) 
                         (not 
                             (null
-                                (or (interp (car arg) P values) (interp (cad (car arg)) P values))
+                                (or (interp (car arg) P values) (interp (cadr arg) P values))
                             )
                         )
                     )
@@ -235,7 +235,7 @@
                             (if closure
                                 (let
                                     ((variableY (getValues (car closure) variableX values))
-                                        (body (cad (car closure))))
+                                        (body (cadr closure)))
                                     (interp body P variableY)
                                 )
                                 E
