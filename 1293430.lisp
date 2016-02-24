@@ -66,32 +66,6 @@
 )
 
 #|
-    Handling the user defined function body
-|#
-(defun userDefinedBody (L)
-    
-    (if (eq (car L) '=) 
-        ;first argument
-        (car (cdr (L))) 
-        ;second argument
-        (userDefinedBody (cdr L)))
-    )
-
-#|
-    Handling the user defined function arguments
-|#
-(defun userDefinedArgs (L)
-
-    (if (eq (car L) '=) 
-        ;first argument
-        nil
-        ;second argument
-        (cons (car L) (userDefinedArgs (cdr L)))
-
-    )
-)
-
-#|
     process of taking in theuserdefined program and 
     making this into Arguments and also a Body
 |#
@@ -111,6 +85,34 @@
         )
     )
 )
+
+#|
+    Handling the user defined function body
+|#
+(defun userDefinedBody (L)
+    
+    (if (eq (car L) '=) 
+        ;first argument
+        (car (cdr (L))) 
+        ;second argument
+        (userDefinedBody (cdr L))
+    )
+)
+
+#|
+    Handling the user defined function arguments
+|#
+(defun userDefinedArgs (L)
+
+    (if (eq (car L) '=) 
+        ;first argument
+        nil
+        ;second argument
+        (cons (car L) (userDefinedArgs (cdr L)))
+
+    )
+)
+
 
 #|
     process of evaluating the arguments while also
@@ -232,13 +234,13 @@
 
                     (t
                         (let
-                            ((variableX (evalArgs arg P values))
+                            ((evalArgsVar (evalArgs arg P values))
                                 (closure (userDefined func (countNum arg) P)))
                             (if closure
                                 (let
-                                    ((variableY (getValues (car closure) variableX values))
+                                    ((variableX (getValues (car closure) evalArgsVar values))
                                         (body (cadr closure)))
-                                    (interp body P variableY)
+                                    (interp body P variableX)
                                 )
                                 E
                             )
